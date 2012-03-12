@@ -1,4 +1,4 @@
-package com.znote;
+package com.zchaos.note;
 
 import java.awt.EventQueue;
 
