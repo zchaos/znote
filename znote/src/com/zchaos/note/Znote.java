@@ -1,8 +1,13 @@
 package com.zchaos.note;
 
 import java.awt.EventQueue;
+import java.awt.GridLayout;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import com.zchaos.note.layout.ZnoteLayout;
 
 public class Znote {
 
@@ -36,8 +41,18 @@ public class Znote {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 600, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		frame.setTitle("znote");
+
+		JPanel contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new GridLayout(1, 0, 0, 0));
+		frame.setContentPane(contentPane);
+
+		new ZnoteLayout(frame.getContentPane()).initLayout();
+
 	}
 
 }
