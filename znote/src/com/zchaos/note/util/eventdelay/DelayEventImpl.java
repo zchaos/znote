@@ -3,15 +3,15 @@ package com.zchaos.note.util.eventdelay;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class EventDelayImpl implements EventDelay {
+public class DelayEventImpl implements DelayEventListener {
 	private long delayTime = 0;
 	private long previewActiveTime = 0;
 
-	private EventDelayListener eventDelay;
+	private DelayEventExecute eventDelay;
 
 	private Object lockObject = new Object();
 
-	public EventDelayImpl(EventDelayListener eventDelay, long delayTime) {
+	public DelayEventImpl(DelayEventExecute eventDelay, long delayTime) {
 		this.eventDelay = eventDelay;
 		this.delayTime = delayTime;
 	}

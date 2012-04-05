@@ -17,11 +17,11 @@ import java.util.Date;
 
 import javax.swing.JTextPane;
 
-import com.zchaos.note.util.eventdelay.EventDelay;
-import com.zchaos.note.util.eventdelay.EventDelayListener;
-import com.zchaos.note.util.eventdelay.EventDelayUtils;
+import com.zchaos.note.util.eventdelay.DelayEventListener;
+import com.zchaos.note.util.eventdelay.DelayEventExecute;
+import com.zchaos.note.util.eventdelay.DelayEventUtils;
 
-public class EditTextPane extends JTextPane implements EventDelayListener {
+public class EditTextPane extends JTextPane implements DelayEventExecute {
 	private String path = "/yunio/tnote";
 	private String tpath = "/yunio/tnote/.zbak";
 
@@ -29,18 +29,18 @@ public class EditTextPane extends JTextPane implements EventDelayListener {
 
 	private File file;
 
-	private EventDelay delay;
+	private DelayEventListener listener;
 
 	public EditTextPane(String name) {
 		this.name = name;
 		this.file = ensureFileExist(path + "/" + name + ".txt");
-		this.delay = EventDelayUtils.delay(this, 5000);
+		this.listener = DelayEventUtils.delay(this, 5000);
 
 		this.setText(readFile(this.file));
 		this.addKeyListener(new KeyListener() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				delay.active();
+				listener.active();
 			}
 
 			@Override
