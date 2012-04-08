@@ -3,7 +3,10 @@ package com.zchaos.note.util.eventdelay;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class EventDelayImpl implements EventDelayListener {
+import com.zchaos.note.service.task.TaskList;
+import com.zchaos.note.task.TaskExecute;
+
+public class EventDelayImpl implements EventDelayListener, TaskExecute {
 	private long delayTime = 0;
 	private long previewActiveTime = 0;
 
@@ -20,8 +23,8 @@ public class EventDelayImpl implements EventDelayListener {
 		if (time <= 0) {
 			return;
 		}
-
-		new Timer().schedule(new DelayTimerTask(), time + 1);
+		TaskList.startTask(this);
+		new Timer().schedule(new DelayTimerTask(this), time + 1);
 	}
 
 	@Override
@@ -33,6 +36,12 @@ public class EventDelayImpl implements EventDelayListener {
 	}
 
 	class DelayTimerTask extends TimerTask {
+		private EventDelayImpl delay;
+
+		public DelayTimerTask(EventDelayImpl delay) {
+			this.delay = delay;
+		}
+
 		@Override
 		public void run() {
 			synchronized (lockObject) {
@@ -44,6 +53,7 @@ public class EventDelayImpl implements EventDelayListener {
 				if (minus >= 0) {
 					eventDelay.execute();
 					previewActiveTime = 0;
+					TaskList.endTask(this.delay);
 				} else {
 					cycle(minus * -1);
 				}

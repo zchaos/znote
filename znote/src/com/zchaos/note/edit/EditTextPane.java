@@ -1,6 +1,5 @@
 package com.zchaos.note.edit;
 
-import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
@@ -17,8 +16,9 @@ import java.util.Date;
 
 import javax.swing.JTextPane;
 
-import com.zchaos.note.util.eventdelay.EventDelayListener;
+import com.zchaos.note.service.console.Console;
 import com.zchaos.note.util.eventdelay.EventDelayExecute;
+import com.zchaos.note.util.eventdelay.EventDelayListener;
 import com.zchaos.note.util.eventdelay.EventDelayUtils;
 
 public class EditTextPane extends JTextPane implements EventDelayExecute {
@@ -80,8 +80,14 @@ public class EditTextPane extends JTextPane implements EventDelayExecute {
 	@Override
 	public void execute() {
 		String content = getTextContent();
+
 		writeFile(getTempFile(), content);
+
+		Console.out("<" + getName() + ">保存到临时文件");
+
 		writeFile(this.file, content);
+
+		Console.out("<" + getName() + ">保存到文件");
 	}
 
 	private File getTempFile() {
