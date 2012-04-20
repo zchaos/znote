@@ -22,8 +22,8 @@ import com.zchaos.note.util.eventdelay.EventDelayListener;
 import com.zchaos.note.util.eventdelay.EventDelayUtils;
 
 public class EditTextPane extends JTextPane implements EventDelayExecute {
-	private String path = "/yunio/tnote";
-	private String tpath = "/yunio/tnote/.zbak";
+	private String path = "/yunio1/tnote";
+	private String tpath = "/yunio1/tnote/.zbak";
 
 	private String name;
 
